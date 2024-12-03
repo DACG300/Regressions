@@ -24,7 +24,7 @@ public class AgenteEmisor extends Agent {
             }
         }
 
-        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST); //creamos el mensaje para enviar los datos al agente principal
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         msg.setContent(dataContent.toString().trim());
         msg.addReceiver(getAID("AgentePrincipal"));
         send(msg);

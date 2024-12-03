@@ -9,6 +9,8 @@ public class RegresionLineal {
     double sumaXY;
     double sumaX2;
     double sumaY2;
+    double b0;
+    double b1;
 
     public RegresionLineal() {
         n = dataset.getDataSetX().length;
@@ -18,6 +20,8 @@ public class RegresionLineal {
         sumaXY = dsm.SumaXY();
         sumaX2 = dsm.SumaX2();
         sumaY2 = dsm.SumaY2();
+         b0 = dsm.Beta0();
+         b1 = dsm.Beta1();
     }
 
     public double r() {
@@ -33,5 +37,18 @@ public class RegresionLineal {
     public double r2() {
         double correlacion = r();
         return correlacion * correlacion;
+    }
+
+    public double[] getBetas() {
+        return new double[]{b0, b1};
+    }
+
+    public double[] getPredictions(double[] X) {
+        double[] predictions = new double[X.length];
+
+        for (int i = 0; i < X.length; i++) {
+            predictions[i] = b0 + b1 * X[i];
+        }
+        return predictions;
     }
 }

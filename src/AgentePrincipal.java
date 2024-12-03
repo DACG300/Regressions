@@ -10,7 +10,7 @@ public class AgentePrincipal extends Agent {
 
         addBehaviour(new CyclicBehaviour() {
             public void action() {
-                ACLMessage msg = receive(); //Recibe el Mensaje de Emisor
+                ACLMessage msg = receive(); // Recibe el Mensaje de Emisor
                 if (msg != null) {
                     String content = msg.getContent();
                     System.out.println("Agente Principal: Recibido " + content);
@@ -35,6 +35,20 @@ public class AgentePrincipal extends Agent {
                         System.out.println("Agente Principal: Enviando datos a Agente Polynomial.");
                     } else if (esRegresionSimple(content)) {
                         System.out.println("Agente Principal: Datos adecuados para regresión simple.");
+
+                        // Ejecutar GenAgent solo cuando sea regresión simple
+                        try {
+                            // Obtener y ejecutar el comportamiento de GenAgent
+                            Agent genAgent = (Agent) getAgent();
+
+                            // Agregar comportamiento para ejecutar la operación del GenAgent
+                            genAgent.addBehaviour(new GenBehaviour());
+                            System.out.println("Agente Principal: Ejecutando GenAgent para regresión simple.");
+
+                        } catch (Exception e) {
+                            System.out.println("Agente Principal: No se pudo ejecutar GenAgent.");
+                            e.printStackTrace();
+                        }
 
                         ACLMessage forward = new ACLMessage(ACLMessage.REQUEST);
                         forward.setContent(content);
